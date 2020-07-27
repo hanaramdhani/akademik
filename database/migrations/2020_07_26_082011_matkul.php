@@ -35,7 +35,7 @@ class Matkul extends Migration
             $tabel->string('nama_dosen', 50);
             $tabel->string('jenis_kelamin', 50);
             $tabel->string('alamat', 50);
-
+            
 
         });
     }

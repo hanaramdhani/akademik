@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DosenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('matkul', 'MatkulController');
+Route::resources(['matkul'=> 'MatkulController', 'dosen'=> 'DosenController','mahasiswa'=>'MahasiswaController']);
 Route::get('getmatkul/{id}', ['uses' => 'MatkulController@getById']);
+Route::get('getdosen/{nip}', ['uses' => 'DosenController@getById']);

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;  
-
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Http\Request;
 
-class DosenController extends Controller
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,22 +14,18 @@ class DosenController extends Controller
      */
     public function index()
     {
-
-        $result = DB::table('dosen')->get();
-        // foreach($result as $k => $v){
-        //     $result[$k]->detail = 'localhost/api/getdosen/' . $v->id;
-        //     $result[$k]->hapus = 'localhost/api/dosen/' . $v->id;
-        // }
+        $result = DB::table('mahasiswa')->get();
+   
         return response($result);
         //
+        //
     }
-
-        /**
+           /**
      * @param String $idgit
      */
-    function getById($nip)
+    function getById($nim)
     {
-        return response(DB::table('dosen')->where('nip', $nip)->get());
+        return response(DB::table('mahasiswa')->where('nim', $nim)->get());
     }
 
     /**
@@ -52,15 +47,16 @@ class DosenController extends Controller
     public function store(Request $request)
     {
 
-        $dosen = [
-            'nip' => Str::random(5),
-            'nama_dosen' => $request->dosen,
+        $mahasiswa = [
+            'nim' => Str::random(20),
+            'nama_mahasiswa' => $request->mahasiswa,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'mata_kuliah'=> $request->mata_kuliah,
             'alamat' => $request->alamat,
         ];
         try {
-            DB::table('dosen')->insert($dosen);
-            return response(['message' => 'Berhasil menambahkan mata kuliah ' . $dosen['nama_dosen']]);
+            DB::table('mahasiswa')->insert($mahasiswa);
+            return response(['message' => 'Berhasil menambahkan nama mahasiswa ' . $mahasiswa['nama_mahasiswa']]);
         } catch (\Throwable $th) {
             return response(['masage' => 'terjadi kesalahan', 'error' => $th], 500);
         }
@@ -96,18 +92,20 @@ class DosenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nip)
+    public function update(Request $request, $nim)
     {
-        $dosen = [];
-        if (isset($request->dosen))
-            $dosen['nama_dosen'] = $request->dosen;
+        $mahasiswa = [];
+        if (isset($request->mahasiswa))
+            $mahasiswa['nama_mahasiswa'] = $request->mahasiswa;
         if (isset($request->jenis_kelamin))
             $dosen['jenis_kelamin'] = $request->jenis_kelamin;
+        if (isset($request->mata_kuliah))
+            $dosen['mata_kuliah'] = $request->mata_kuliah;
         if (isset($request->alamat))
             $dosen['alamat'] = $request->alamat;
         try {
-            DB::table('dosen')->where('nip', $nip)->update($dosen);
-            return response(['message' => 'Berhasil Memperbarui dosen dengan nip ' . $nip]);
+            DB::table('mahasiswa')->where('nim', $nim)->update($mahasiswa);
+            return response(['message' => 'Berhasil Memperbarui dosen dengan nim ' . $nim]);
         } catch (\Throwable $th) {
             return response(['masage' => 'terjadi kesalahan', 'error' => $th], 500);
         }
@@ -120,11 +118,11 @@ class DosenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($nip)
+    public function destroy($nim)
     {
         try {
-            DB::table('dosen')->where('nip', $nip)->delete();
-            return response(['message' => 'Berhasil Menghapus   dengan nip ' . $nip]);
+            DB::table('mahasiswa')->where('nim', $nim)->delete();
+            return response(['message' => 'Berhasil Menghapus   dengan nim ' . $nim]);
         } catch (\Throwable $th) {
             return response(['masage' => 'terjadi kesalahan', 'error' => $th], 500);
         }

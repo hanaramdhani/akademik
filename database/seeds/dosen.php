@@ -23,7 +23,6 @@ class dosen extends Seeder
                 'nip' => Str::random(5),
                 'nama_dosen'=> $faker->name(),
                 'jenis_kelamin' => 'L',
-                
                 'alamat'=> $faker->address(50),
 
 
